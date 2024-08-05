@@ -765,6 +765,11 @@ namespace Content.Client.Preferences.UI
                 }
             }
 
+            //Look into DeltaV Github Repository later
+            //look into making Loadout button right by job priority 
+            //Make the loadout tab a popout UI for a singular job
+            //Use the Character SetupGui.xaml as a prototype for the popout gui.
+
             if (Profile is not null)
             {
                 UpdateJobPriorities();

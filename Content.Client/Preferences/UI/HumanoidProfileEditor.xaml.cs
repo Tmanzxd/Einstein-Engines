@@ -357,7 +357,7 @@ namespace Content.Client.Preferences.UI
                 UpdatePreview();
             };
 
-            _hairPicker.OnSlotAdd += delegate()
+            _hairPicker.OnSlotAdd += delegate ()
             {
                 if (Profile is null)
                     return;
@@ -378,7 +378,7 @@ namespace Content.Client.Preferences.UI
                 UpdatePreview();
             };
 
-            _facialHairPicker.OnSlotAdd += delegate()
+            _facialHairPicker.OnSlotAdd += delegate ()
             {
                 if (Profile is null)
                     return;
@@ -611,7 +611,7 @@ namespace Content.Client.Preferences.UI
             {
                 var dict = new Dictionary<string, GuideEntry> { { DefaultSpeciesGuidebook, guideRoot } };
                 //TODO: Don't close the guidebook if its already open, just go to the correct page
-                guidebookController.ToggleGuidebook(dict, includeChildren:true, selected: page);
+                guidebookController.ToggleGuidebook(dict, includeChildren: true, selected: page);
             }
         }
 
@@ -645,7 +645,7 @@ namespace Content.Client.Preferences.UI
                 var selector = new AntagPreferenceSelector(antag,
                         _jobPriorities.FirstOrDefault(j => j.Priority == JobPriority.High)?.HighJob
                             ?? new())
-                    { Margin = new Thickness(3f, 3f, 3f, 0f) };
+                { Margin = new Thickness(3f, 3f, 3f, 0f) };
                 _antagList.AddChild(selector);
                 _antagPreferences.Add(selector);
                 if (selector.Disabled)
@@ -700,7 +700,7 @@ namespace Content.Client.Preferences.UI
 
                     category.AddChild(new PanelContainer
                     {
-                        PanelOverride = new StyleBoxFlat {BackgroundColor = Color.FromHex("#464966")},
+                        PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#464966") },
                         Children =
                         {
                             new Label
@@ -764,11 +764,6 @@ namespace Content.Client.Preferences.UI
 
                 }
             }
-
-            //Look into DeltaV Github Repository later
-            //look into making Loadout button right by job priority 
-            //Make the loadout tab a popout UI for a singular job
-            //Use the Character SetupGui.xaml as a prototype for the popout gui.
 
             if (Profile is not null)
             {
@@ -838,51 +833,51 @@ namespace Content.Client.Preferences.UI
             switch (skin)
             {
                 case HumanoidSkinColor.HumanToned:
-                {
-                    if (!_skinColor.Visible)
                     {
-                        _skinColor.Visible = true;
-                        _rgbSkinColorContainer.Visible = false;
+                        if (!_skinColor.Visible)
+                        {
+                            _skinColor.Visible = true;
+                            _rgbSkinColorContainer.Visible = false;
+                        }
+
+                        var color = SkinColor.HumanSkinTone((int) _skinColor.Value);
+
+                        CMarkings.CurrentSkinColor = color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));//
+                        break;
                     }
-
-                    var color = SkinColor.HumanSkinTone((int) _skinColor.Value);
-
-                    CMarkings.CurrentSkinColor = color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));//
-                    break;
-                }
                 case HumanoidSkinColor.Hues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    CMarkings.CurrentSkinColor = _rgbSkinColorSelector.Color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(_rgbSkinColorSelector.Color));
-                    break;
-                }
+                        CMarkings.CurrentSkinColor = _rgbSkinColorSelector.Color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(_rgbSkinColorSelector.Color));
+                        break;
+                    }
                 case HumanoidSkinColor.TintedHues:
                 case HumanoidSkinColor.TintedHuesSkin: // DeltaV - Tone blending
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
+
+                        var color = skin switch // DeltaV - Tone blending
+                        {
+                            HumanoidSkinColor.TintedHues => SkinColor.TintedHues(_rgbSkinColorSelector.Color),
+                            HumanoidSkinColor.TintedHuesSkin => SkinColor.TintedHuesSkin(_rgbSkinColorSelector.Color, skinColor),
+                            _ => Color.White
+                        };
+
+                        CMarkings.CurrentSkinColor = color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
                     }
-
-                    var color = skin switch // DeltaV - Tone blending
-                    {
-                        HumanoidSkinColor.TintedHues => SkinColor.TintedHues(_rgbSkinColorSelector.Color),
-                        HumanoidSkinColor.TintedHuesSkin => SkinColor.TintedHuesSkin(_rgbSkinColorSelector.Color, skinColor),
-                        _ => Color.White
-                    };
-
-                    CMarkings.CurrentSkinColor = color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
-                    break;
-                }
             }
 
             IsDirty = true;
@@ -1033,7 +1028,7 @@ namespace Content.Client.Preferences.UI
 
         private void UpdateFlavorTextEdit()
         {
-            if(_flavorTextEdit != null)
+            if (_flavorTextEdit != null)
                 _flavorTextEdit.TextRope = new Rope.Leaf(Profile?.FlavorText ?? "");
         }
 
@@ -1078,40 +1073,40 @@ namespace Content.Client.Preferences.UI
             switch (skin)
             {
                 case HumanoidSkinColor.HumanToned:
-                {
-                    if (!_skinColor.Visible)
                     {
-                        _skinColor.Visible = true;
-                        _rgbSkinColorContainer.Visible = false;
-                    }
+                        if (!_skinColor.Visible)
+                        {
+                            _skinColor.Visible = true;
+                            _rgbSkinColorContainer.Visible = false;
+                        }
 
-                    _skinColor.Value = SkinColor.HumanSkinToneFromColor(Profile.Appearance.SkinColor);
-                    break;
-                }
+                        _skinColor.Value = SkinColor.HumanSkinToneFromColor(Profile.Appearance.SkinColor);
+                        break;
+                    }
                 case HumanoidSkinColor.Hues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    // Set the RGB values to the direct values otherwise
-                    _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
-                    break;
-                }
+                        // Set the RGB values to the direct values otherwise
+                        _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
+                        break;
+                    }
                 case HumanoidSkinColor.TintedHues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    // Set the RGB values to the direct values otherwise
-                    _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
-                    break;
-                }
+                        // Set the RGB values to the direct values otherwise
+                        _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
+                        break;
+                    }
             }
         }
 
@@ -1262,7 +1257,7 @@ namespace Content.Client.Preferences.UI
 
             // hair color
             Color? hairColor = null;
-            if ( Profile.Appearance.HairStyleId != HairStyles.DefaultHairStyle &&
+            if (Profile.Appearance.HairStyleId != HairStyles.DefaultHairStyle &&
                 _markingManager.Markings.TryGetValue(Profile.Appearance.HairStyleId, out var hairProto))
                 if (_markingManager.CanBeApplied(Profile.Species, Profile.Sex, hairProto, _prototypeManager))
                     hairColor = _markingManager.MustMatchSkin(Profile.Species, HumanoidVisualLayers.Hair, out _, _prototypeManager)
@@ -1282,7 +1277,7 @@ namespace Content.Client.Preferences.UI
 
             // facial hair color
             Color? facialHairColor = null;
-            if ( Profile.Appearance.FacialHairStyleId != HairStyles.DefaultFacialHairStyle &&
+            if (Profile.Appearance.FacialHairStyleId != HairStyles.DefaultFacialHairStyle &&
                 _markingManager.Markings.TryGetValue(Profile.Appearance.FacialHairStyleId, out var facialHairProto))
                 if (_markingManager.CanBeApplied(Profile.Species, Profile.Sex, facialHairProto, _prototypeManager))
                     facialHairColor = _markingManager.MustMatchSkin(Profile.Species, HumanoidVisualLayers.Hair, out _, _prototypeManager)
